@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class UserInfo implements Serializable{
 
-    private int id;
+    private Integer id;
 
     private String phone;
 
@@ -15,7 +15,7 @@ public class UserInfo implements Serializable{
 
     private String sex;
 
-    private int age;
+    private Integer age;
 
     private String address;
 
@@ -35,14 +35,6 @@ public class UserInfo implements Serializable{
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getSex() {
         return sex;
     }
@@ -51,19 +43,27 @@ public class UserInfo implements Serializable{
         this.sex = sex;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }

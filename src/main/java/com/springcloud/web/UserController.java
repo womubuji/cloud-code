@@ -1,6 +1,7 @@
 package com.springcloud.web;
 
 import com.springcloud.model.PageBase;
+import com.springcloud.model.ResultBase;
 import com.springcloud.model.UserInfo;
 import com.springcloud.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,23 @@ public class UserController {
     }
 
     @RequestMapping("/addUser")
-    public int addUser(UserInfo userInfo) {
-        System.out.println("name="+userInfo.getName());
-        return 1;
+    public ResultBase addUser(UserInfo userInfo) {
+        userService.addUser(userInfo);
+
+        return new ResultBase(true);
     }
 
     @RequestMapping("/updateUser")
-    public String updateUser(@RequestBody UserInfo userInfo) {
-        System.out.println("age="+userInfo.getAge());
-        return "OK";
+    public ResultBase updateUser(UserInfo userInfo) {
+        userService.updateUser(userInfo);
+
+        return new ResultBase(true);
+    }
+
+    @RequestMapping("/deleteUser")
+    public ResultBase deleteUser(String id) {
+        userService.deleteUser(id);
+
+        return new ResultBase(true);
     }
 }

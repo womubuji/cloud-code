@@ -82,6 +82,7 @@
         $.ajax({
             url:myUrl,      //根据操作传入不同的URL
             data:{
+                id:$('#id').val(),
                 name:$('#name').val(),
                 phone:$('#phone').val(),
                 sex:$('#sex').val(),
@@ -92,11 +93,10 @@
             async:false,    //异步传输
             timeout:50000,
             //设置编码
-            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+//            contentType: "application/x-www-form-urlencoded; charset=utf-8",
             success:function (data) {
-                if(data > 0){
-//                    $('#tip').html('<span style="color: green">操作成功！</span>');
-                    alert("success")
+                if(data.bool == true){
+                    $('#tip').html('<span style="color: green">操作成功！</span>');
                     location.reload();
                 }else{
                     $('#tip').html('<span style="color: red">操作失败，请重试</span>');
@@ -183,9 +183,9 @@
 
       </div>
       <div class="modal-footer">
+        <span id="tip"></span>
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
         <button type="button" class="btn btn-primary" onclick="validate()">确定</button>
-        <span id="tip"></span>
       </div>
     </div>
   </div>
@@ -371,16 +371,6 @@
                    <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#myModal" onclick="setUrl()">新增</button>
                  </div>
                </div>
-               <div class="col-lg-1">
-                 <div class="input-group">
-                   <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#myModal" onclick="update()">修改</button>
-                 </div>
-               </div>
-               <div class="col-lg-1">
-                 <div class="input-group">
-                   <button type="button" class="btn btn-block btn-primary">删除</button>
-                 </div>
-               </div>
              </div>
             </div>
             </div>
@@ -392,6 +382,10 @@
                   <th>id</th>
                   <th>phone</th>
                   <th>name</th>
+                  <th>sex</th>
+                  <th>age</th>
+                  <th>address</th>
+                  <th>操作</th>
                 </tr>
                 </thead>
               </table>
@@ -435,6 +429,8 @@
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
 
+<script src="./hao.js"></script>
+
 <!-- page script -->
 <script>
   $(function () {
@@ -451,10 +447,60 @@
       'columns': [
             { "data": "id" },
             { "data": "phone" },
-            { "data": "name" }
-        ]
+            { "data": "name" },
+            { "data": "sex" },
+            { "data": "age" },
+            { "data": "address" }
+        ],
+      'columnDefs':[
+          {
+              "render":function (data,type,full) {
+                  return "<button type=\"button\" class=\"btn btn-primary\" onclick=\"update('"+full.id+"'," +
+                      "'"+full.name+"','"+full.phone+"','"+full.sex+"','"+full.age+"','"+full.address+"')\">修改</button>"+"&nbsp;&nbsp;"
+                      +"&nbsp;&nbsp;<button type=\"button\" class=\"btn btn-primary\" onclick=\"deleteUser('"+full.id+"')\">删除</button>";
+              },
+              "targets":6
+          }
+      ]
     })
   })
+
+  function update(id,name,phone,sex,age,address) {
+      myUrl="/updateUser";
+      $('#myModal').modal();
+      $('#id').val(id);
+      $('#name').val(name);
+      $('#phone').val(phone);
+      $('#sex').val(sex);
+      $('#age').val(age);
+      $('#address').val(address);
+  }
+
+  function deleteUser(id) {
+      Ewin.confirm({ message: "确认要删除选择的数据吗？" }).on(function (e) {
+          if (!e) {
+              return;
+          }
+          $.ajax({
+              type: "post",
+              url: "/deleteUser",
+              data: {"id":id},
+              success: function (data) {
+                  if (data.bool == true) {
+                      console.log('提交数据成功');
+                      location.reload();
+                  }
+              },
+              error: function () {
+                  console.log("删除出错！")
+              },
+              complete: function () {
+
+              }
+
+          });
+      });
+  }
 </script>
 </body>
 </html>
