@@ -21,7 +21,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/queryUserList")
-    public PageBase<UserInfo> queryUserList(HttpServletRequest request) {
+    public PageBase<UserInfo> queryUserList() {
         UserInfo userInfo = new UserInfo();
 
         return userService.queryUserList(userInfo);

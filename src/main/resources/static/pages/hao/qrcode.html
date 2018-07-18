@@ -40,7 +40,7 @@
         checkForm();
     }
     function update(id) {
-        myUrl="/updateUser";
+        myUrl="/updateQrCode";
         if (!id) {
             alert('id错误');
             return false;
@@ -57,11 +57,12 @@
                    var user = eval("("+data + ")");
 
                    //赋值
-                   $('#phone').val(user.phone);
-                   $('#name').val(user.name);
-                   $('#sex').val(user.sex);
-                   $('#age').val(user.age);
-                   $('#address').val(user.address);
+                   $('#uniqueSymbol').val(user.uniqueSymbol);
+                   $('#activityId').val(user.activityId);
+                   $('#qrState').val(user.qrState);
+                   $('#prizeGrade').val(user.prizeGrade);
+                   $('#isDeleted').val(user.isDeleted);
+                   $('#userId').val(user.userId);
 
                }
            }
@@ -78,16 +79,16 @@
 //        else{
 //            formData = $('#form-data').serializeArray();
 //        }
-
         $.ajax({
             url:myUrl,      //根据操作传入不同的URL
             data:{
                 id:$('#id').val(),
-                name:$('#name').val(),
-                phone:$('#phone').val(),
-                sex:$('#sex').val(),
-                age:$('#age').val(),
-                address:$('#address').val()
+                uniqueSymbol:$('#uniqueSymbol').val(),
+                activityId:$('#activityId').val(),
+                qrState:$('#qrState').val(),
+                prizeGrade:$('#prizeGrade').val(),
+                isDeleted:$('#isDeleted').val(),
+                userId:$('#userId').val()
             },  //传入序列化的表单对象
             type:"post",
             async:false,    //异步传输
@@ -122,7 +123,7 @@
      3.清空表单数据
      */
     function setUrl() {
-        myUrl='/addUser';
+        myUrl='/addQrCode';
         $('#form-data input').val(" ");
     }
 
@@ -136,38 +137,38 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">用户信息</h4>
+        <h4 class="modal-title" id="myModalLabel">二维码信息</h4>
       </div>
       <div class="modal-body">
         <input type="text" id="id" name="id" hidden>
         <div class="row">
           <div class="col-lg-6">
             <div class="input-group">
-              <span class="input-group-addon">姓名：</span>
-              <input type="text" class="form-control" id="name" name="name">
+              <span class="input-group-addon">唯一标识：</span>
+              <input type="text" class="form-control" id="uniqueSymbol" name="uniqueSymbol">
             </div>
           </div>
 
 
           <div class="col-lg-6">
             <div class="input-group">
-              <span class="input-group-addon">手机号：</span>
-              <input type="text" class="form-control" id="phone" name="phone">
+              <span class="input-group-addon">活动：</span>
+              <input type="text" class="form-control" id="activityId" name="activityId">
             </div>
           </div>
         </div>
         <div class="row" style="margin-top: 20px">
           <div class="col-lg-6">
             <div class="input-group">
-              <span class="input-group-addon">性别：</span>
-              <input type="text" class="form-control" id="sex" name="sex">
+              <span class="input-group-addon">奖品等级：</span>
+              <input type="text" class="form-control" id="prizeGrade" name="prizeGrade">
             </div>
           </div>
 
           <div class="col-lg-6">
             <div class="input-group">
-              <span class="input-group-addon">年龄：</span>
-              <input type="text" class="form-control" id="age" name="age">
+              <span class="input-group-addon">状态：</span>
+              <input type="text" class="form-control" id="qrState" name="qrState">
             </div>
           </div>
         </div>
@@ -175,8 +176,14 @@
         <div class="row" style="margin-top: 20px">
           <div class="col-lg-6">
             <div class="input-group">
-              <span class="input-group-addon">家庭住址：</span>
-              <input type="text" class="form-control" id="address" name="address">
+              <span class="input-group-addon">是否删除：</span>
+              <input type="text" class="form-control" id="isDeleted" name="isDeleted">
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="input-group">
+              <span class="input-group-addon">用户：</span>
+              <input type="text" class="form-control" id="userId" name="userId">
             </div>
           </div>
         </div>
@@ -305,68 +312,15 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <!--<section class="content-header">-->
-      <!--<h1>-->
-        <!--Data Tables-->
-        <!--<small>advanced tables</small>-->
-      <!--</h1>-->
-      <!--<ol class="breadcrumb">-->
-        <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
-        <!--<li><a href="#">Tables</a></li>-->
-        <!--<li class="active">Data tables</li>-->
-      <!--</ol>-->
-    <!--</section>-->
-
     <!-- Main content -->
     <section class="content">
-     <form role="form">
       <div class="row">
         <div class="col-xs-12">
-
           <div class="box">
             <div class="box-header">
               <!--<h3 class="box-title">Data Table With Full Features</h3>-->
-            <div class="row">
-             <div class="form-group">
-              <div class="col-lg-3">
-               <div class="input-group">
-                <span class="input-group-addon">姓名：</span>
-                <input type="text" class="form-control" id="search_name" placeholder="用户姓名">
-               </div>
-              </div>
-
-
-              <div class="col-lg-3">
-               <div class="input-group">
-                <span class="input-group-addon">手机号：</span>
-                <input type="text" class="form-control" id="search_phone" placeholder="手机号">
-               </div>
-              </div>
-             </div>
-            </div>
-
             <div class="row" style="margin-top: 15px">
              <div class="form-group">
-              <div class="col-lg-3">
-                <div class="input-group">
-                  <span class="input-group-addon">性别：</span>
-                  <input type="text" class="form-control" id="search_sex" placeholder="性别">
-                </div>
-              </div>
-
-              <div class="col-lg-3">
-                <div class="input-group">
-                  <span class="input-group-addon">年龄：</span>
-                  <input type="text" class="form-control" id="search_age" placeholder="年龄">
-                </div>
-              </div>
-
-               <div class="col-lg-1">
-                 <div class="input-group">
-                   <button type="button" class="btn btn-block btn-primary">查询</button>
-                 </div>
-               </div>
                <div class="col-lg-1">
                  <div class="input-group">
                    <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#myModal" onclick="setUrl()">新增</button>
@@ -381,11 +335,14 @@
                 <thead>
                 <tr>
                   <th>id</th>
-                  <th>phone</th>
-                  <th>name</th>
-                  <th>sex</th>
-                  <th>age</th>
-                  <th>address</th>
+                  <th>唯一标识</th>
+                  <th>活动</th>
+                  <th>用户</th>
+                  <th>状态</th>
+                  <th>奖品等级</th>
+                  <th>是否删除</th>
+                  <th>创建时间</th>
+                  <th>修改时间</th>
                   <th>操作</th>
                 </tr>
                 </thead>
@@ -397,7 +354,6 @@
         </div>
         <!-- /.col -->
       </div>
-     </form>
       <!-- /.row -->
     </section>
     <!-- /.content -->
@@ -431,6 +387,7 @@
 <script src="../../dist/js/demo.js"></script>
 
 <script src="./hao.js"></script>
+<script src="./moment.js"></script>
 
 <!-- page script -->
 <script>
@@ -442,16 +399,35 @@
       'ordering'    : true,
       'info'        : true,
       'autoWidth'   : false,
+      'bProcessing' : true,
+      'oLanguage':{
+          'sProcessing' : "正在获取数据，请稍后...",
+          'sLengthMenu' : "显示 _MENU_ 条",
+          'sZeroRecords' : "没有您要搜索的内容",
+          'sInfo' : "从 _START_ 到  _END_ 条记录 总记录数为 _TOTAL_ 条",
+          "sInfoEmpty" : "记录数为0",
+          "sInfoFiltered" : "(全部记录数 _MAX_ 条)",
+          "sSearch" : "搜索",
+          "oPaginate": {
+              "sFirst" : "第一页",
+              "sPrevious" : "上一页",
+              "sNext" : "下一页",
+              "sLast" : "最后一页"
+          }
+      },
       'ajax':{
-          'url':'/queryUserList'
+          'url':'/queryQrCodeList'
       },
       'columns': [
             { "data": "id" },
-            { "data": "phone" },
-            { "data": "name" },
-            { "data": "sex" },
-            { "data": "age" },
-            { "data": "address" }
+            { "data": "uniqueSymbol" },
+            { "data": "activityId" },
+            { "data": "userId" },
+            { "data": "qrState" },
+            { "data": "prizeGrade" },
+            { "data": "isDeleted" },
+            { "data": "createTime" },
+            { "data": "updateTime" }
         ],
       'columnDefs':[
           {
@@ -460,7 +436,19 @@
                       "'"+full.name+"','"+full.phone+"','"+full.sex+"','"+full.age+"','"+full.address+"')\">修改</button>"+"&nbsp;&nbsp;"
                       +"&nbsp;&nbsp;<button type=\"button\" class=\"btn btn-primary\" onclick=\"deleteUser('"+full.id+"')\">删除</button>";
               },
-              "targets":6
+              "targets":9
+          },
+          {
+              "render":function (data,type,full) {
+                  return  moment(data).format("YYYY-MM-DD HH:mm:ss");;
+              },
+              "targets":7
+          },
+          {
+              "render":function (data,type,full) {
+                  return  moment(data).format("YYYY-MM-DD HH:mm:ss");;
+              },
+              "targets":8
           }
       ]
     })
