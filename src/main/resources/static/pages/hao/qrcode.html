@@ -400,6 +400,7 @@
       'info'        : true,
       'autoWidth'   : false,
       'bProcessing' : true,
+      'dataType' : 'json',
       'oLanguage':{
           'sProcessing' : "正在获取数据，请稍后...",
           'sLengthMenu' : "显示 _MENU_ 条",
@@ -431,21 +432,20 @@
         ],
       'columnDefs':[
           {
-              "render":function (data,type,full) {
-                  return "<button type=\"button\" class=\"btn btn-primary\" onclick=\"update('"+full.id+"'," +
-                      "'"+full.name+"','"+full.phone+"','"+full.sex+"','"+full.age+"','"+full.address+"')\">修改</button>"+"&nbsp;&nbsp;"
-                      +"&nbsp;&nbsp;<button type=\"button\" class=\"btn btn-primary\" onclick=\"deleteUser('"+full.id+"')\">删除</button>";
+              "render":function (data,type,fullData,meta) {
+                  return "<button type=\"button\" class=\"btn btn-primary\" data-rowindex='"+meta.row+"' onclick=\"toUpdate("+ JSON.stringify(fullData).replace(/\"/g,"'") +")\">修改</button>"+"&nbsp;&nbsp;"
+                      +"&nbsp;&nbsp;<button type=\"button\" class=\"btn btn-primary\" onclick=\"deleteUser('"+fullData.id+"')\">删除</button>";
               },
               "targets":9
           },
           {
-              "render":function (data,type,full) {
+              "render":function (data) {
                   return  moment(data).format("YYYY-MM-DD HH:mm:ss");;
               },
               "targets":7
           },
           {
-              "render":function (data,type,full) {
+              "render":function (data) {
                   return  moment(data).format("YYYY-MM-DD HH:mm:ss");;
               },
               "targets":8
@@ -454,15 +454,19 @@
     })
   })
 
-  function update(id,name,phone,sex,age,address) {
+  function toUpdate(row) {
+      var obj = JSON.parse('{"a": "Hello", "b": "World"}');
+      alert(obj);
+      alert(obj.a)
       myUrl="/updateUser";
       $('#myModal').modal();
-      $('#id').val(id);
-      $('#name').val(name);
-      $('#phone').val(phone);
-      $('#sex').val(sex);
-      $('#age').val(age);
-      $('#address').val(address);
+      $('#id').val(row.id);
+      $('#uniqueSymbol').val(row.uniqueSymbol);
+      $('#activityId').val(row.activityId);
+      $('#userId').val(row.userId);
+      $('#qrState').val(row.qrState);
+      $('#prizeGrade').val(row.prizeGrade);
+      $('#isDeleted').val(row.isDeleted);
   }
 
   function deleteUser(id) {
